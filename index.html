@@ -1,112 +1,123 @@
 <!DOCTYPE HTML>
-<!--
-	Lens by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
-		<title>Lens by HTML5 UP</title>
+		<title>FloresdeHilos - Tienda</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		
+		<style>
+			#cart-container { position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: #222; max-width: 280px; display: none; font-family: sans-serif; }
+			.cart-btn-main { background: #333; color: white; border: none; padding: 15px; border-radius: 50%; cursor: pointer; position: fixed; top: 20px; right: 20px; z-index: 1001; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+			.add-to-cart-btn { background: #2ecc71; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 5px; margin-top: 10px; font-size: 0.8em; transition: 0.3s; }
+			.add-to-cart-btn:hover { background: #27ae60; }
+			.checkout-whatsapp { background: #25d366; color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+			.cart-count { background: #e74c3c; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: 5px; right: 5px; }
+		</style>
 	</head>
 	<body class="is-preload-0 is-preload-1 is-preload-2">
 
-		<!-- Main -->
-			<div id="main">
+		<button class="cart-btn-main" onclick="toggleCart()">
+			🛒 <span id="cart-counter" class="cart-count">0</span>
+		</button>
 
-				<!-- Header -->
-					<header id="header">
-						<h1>Lens</h1>
-						<p>Just another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>
+		<div id="cart-container">
+			<h3 style="margin-bottom: 10px; border-bottom: 1px solid #ddd;">Tu Pedido</h3>
+			<ul id="cart-list" style="list-style: none; padding: 0; max-height: 200px; overflow-y: auto; font-size: 0.9em;"></ul>
+			<p style="margin-top: 10px;"><strong>Total: <span id="cart-total">0</span>€</strong></p>
+			<button class="checkout-whatsapp" onclick="checkout()">Pagar por Bizum</button>
+			<button onclick="toggleCart()" style="background:none; border:none; color: #888; font-size: 0.7em; width: 100%; cursor:pointer;">Cerrar</button>
+		</div>
+
+		<div id="main">
+
+				<header id="header">
+						<h1>FloresdeHilos</h1>
+						<p>Tu tienda de hilos y flores artesanales.</p>
 						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
 							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
 						</ul>
 					</header>
 
-				<!-- Thumbnail -->
-					<section id="thumbnails">
+				<section id="thumbnails">
 						<article>
 							<a class="thumbnail" href="images/fulls/01.jpg" data-position="left center"><img src="images/thumbs/01.jpg" alt="" /></a>
-							<h2>Diam tempus accumsan</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<h2>Ramo de Flores Azules</h2>
+							<p>Hermoso ramo hecho a mano. <br><strong>Precio: 20€</strong></p>
+							<button class="add-to-cart-btn" onclick="addToCart('Ramo Azules', 20)">Añadir al carrito</button>
 						</article>
+
 						<article>
 							<a class="thumbnail" href="images/fulls/02.jpg"><img src="images/thumbs/02.jpg" alt="" /></a>
-							<h2>Vivamus convallis libero</h2>
-							<p>Sed velit lacus, laoreet at venenatis convallis in lorem tincidunt.</p>
+							<h2>Ramo Rosa Suave</h2>
+							<p>Detalle perfecto para regalo. <br><strong>Precio: 25€</strong></p>
+							<button class="add-to-cart-btn" onclick="addToCart('Ramo Rosa', 25)">Añadir al carrito</button>
 						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/03.jpg" data-position="top center"><img src="images/thumbs/03.jpg" alt="" /></a>
-							<h2>Nec accumsan enim felis</h2>
-							<p>Maecenas eleifend tellus ut turpis eleifend, vitae pretium faucibus.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/04.jpg"><img src="images/thumbs/04.jpg" alt="" /></a>
-							<h2>Donec maximus nisi eget</h2>
-							<p>Tristique in nulla vel congue. Sed sociis natoque parturient nascetur.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/05.jpg" data-position="top center"><img src="images/thumbs/05.jpg" alt="" /></a>
-							<h2>Nullam vitae nunc vulputate</h2>
-							<p>In pellentesque cursus velit id posuere. Donec vehicula nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/06.jpg"><img src="images/thumbs/06.jpg" alt="" /></a>
-							<h2>Phasellus magna faucibus</h2>
-							<p>Nulla dignissim libero maximus tellus varius dictum ut posuere magna.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/07.jpg"><img src="images/thumbs/07.jpg" alt="" /></a>
-							<h2>Proin quis mauris</h2>
-							<p>Etiam ultricies, lorem quis efficitur porttitor, facilisis ante orci urna.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/08.jpg"><img src="images/thumbs/08.jpg" alt="" /></a>
-							<h2>Gravida quis varius enim</h2>
-							<p>Nunc egestas congue lorem. Nullam dictum placerat ex sapien tortor mattis.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/09.jpg"><img src="images/thumbs/09.jpg" alt="" /></a>
-							<h2>Morbi eget vitae adipiscing</h2>
-							<p>In quis vulputate dui. Maecenas metus elit, dictum praesent lacinia lacus.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/10.jpg"><img src="images/thumbs/10.jpg" alt="" /></a>
-							<h2>Habitant tristique senectus</h2>
-							<p>Vestibulum ante ipsum primis in faucibus orci luctus ac tincidunt dolor.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/11.jpg"><img src="images/thumbs/11.jpg" alt="" /></a>
-							<h2>Pharetra ex non faucibus</h2>
-							<p>Ut sed magna euismod leo laoreet congue. Fusce congue enim ultricies.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/12.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-					</section>
 
-				<!-- Footer -->
-					<footer id="footer">
+						</section>
+
+				<footer id="footer">
 						<ul class="copyright">
-							<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a>.</li>
+							<li>&copy; FloresdeHilos.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a>.</li>
 						</ul>
 					</footer>
 
 			</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
+		<script>
+			let cart = [];
+			let total = 0;
+			const MI_TELEFONO = "34600000000"; // CAMBIA ESTO POR TU NÚMERO (con 34)
+
+			function addToCart(name, price) {
+				cart.push({name, price});
+				total += price;
+				updateCart();
+				// Feedback visual rápido
+				const btn = event.target;
+				const originalText = btn.innerText;
+				btn.innerText = "¡Añadido! ✅";
+				setTimeout(() => btn.innerText = originalText, 1000);
+			}
+
+			function updateCart() {
+				document.getElementById('cart-counter').innerText = cart.length;
+				const list = document.getElementById('cart-list');
+				list.innerHTML = "";
+				cart.forEach((item, index) => {
+					const li = document.createElement('li');
+					li.style.marginBottom = "5px";
+					li.innerHTML = `${item.name} - ${item.price}€ <button onclick="removeItem(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:0.8em;">[x]</button>`;
+					list.appendChild(li);
+				});
+				document.getElementById('cart-total').innerText = total;
+			}
+
+			function removeItem(index) {
+				total -= cart[index].price;
+				cart.splice(index, 1);
+				updateCart();
+			}
+
+			function toggleCart() {
+				const container = document.getElementById('cart-container');
+				container.style.display = container.style.display === 'block' ? 'none' : 'block';
+			}
+
+			function checkout() {
+				if (cart.length === 0) return alert("El carrito está vacío");
+				let message = "¡Hola FloresdeHilos! Quiero hacer este pedido:%0A%0A";
+				cart.forEach(item => { message += `• ${item.name} (${item.price}€)%0A`; });
+				message += `%0A*Total: ${total}€*%0A¿Me pasas los datos para el Bizum?`;
+				window.open(`https://wa.me/${MI_TELEFONO}?text=${message}`, '_blank');
+			}
+		</script>
+
+		<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/main.js"></script>
-
 	</body>
 </html>
