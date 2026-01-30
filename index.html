@@ -1,130 +1,259 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>FloresdeHilos - Tienda</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		
-		<style>
-			#cart-container { position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: #222; max-width: 280px; display: none; font-family: sans-serif; }
-			.cart-btn-main { background: #333; color: white; border: none; padding: 15px; border-radius: 50%; cursor: pointer; position: fixed; top: 20px; right: 20px; z-index: 1001; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-			.add-to-cart-btn { background: #2ecc71; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 5px; margin-top: 10px; font-size: 0.8em; transition: 0.3s; }
-			.add-to-cart-btn:hover { background: #27ae60; }
-			.checkout-whatsapp { background: #25d366; color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-			.cart-count { background: #e74c3c; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: 5px; right: 5px; }
-		</style>
-	</head>
-	<body class="is-preload-0 is-preload-1 is-preload-2">
 
-		<button class="cart-btn-main" onclick="toggleCart()">
-			🛒 <span id="cart-counter" class="cart-count">0</span>
-		</button>
 
-		<div id="cart-container">
-			<h3 style="margin-bottom: 10px; border-bottom: 1px solid #ddd;">Tu Pedido</h3>
-			<ul id="cart-list" style="list-style: none; padding: 0; max-height: 200px; overflow-y: auto; font-size: 0.9em;"></ul>
-			<p style="margin-top: 10px;"><strong>Total: <span id="cart-total">0</span>€</strong></p>
-			<button class="checkout-whatsapp" onclick="checkout()">Pagar por Bizum</button>
-			<button onclick="toggleCart()" style="background:none; border:none; color: #888; font-size: 0.7em; width: 100%; cursor:pointer;">Cerrar</button>
-		</div>
 
-		<div id="main">
 
-				<header id="header">
-						<h1>FloresdeHilos</h1>
-						<p>Tu tienda de hilos y flores artesanales.</p>
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-					</header>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloresdeHilos - Tienda Artesanal</title>
+    <style>
+        /* ESTILOS BASE */
+        body {
+            background-color: #e0f7f9; 
+            color: #333;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding-top: 70px; 
+            scroll-behavior: smooth;
+        }
 
-				<section id="thumbnails">
-    <article>
-        <a class="thumbnail" href="images/fulls/01.jpg" data-position="left center">
-            <img src="images/thumbs/Ramo de flores.jpeg" alt="Ramo de Flores Blancas y Rojas" />
-        </a>
-        <h2>Ramo de Flores Blancas y Rojas</h2>
-        <p>Hermoso ramo hecho a mano. <br><strong>Precio: 20€</strong></p>
-        <button class="add-to-cart-btn" onclick="addToCart('Ramo Blancas y Rojas', 20)">Añadir al carrito</button>
-    </article>
+        /* HEADER CON EL NUEVO LOGO */
+        header {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 5%;
+            position: fixed;
+            top: 0;
+            width: 90%;
+            z-index: 2000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
 
-    <article>
-        <a class="thumbnail" href="images/fulls/02.jpg">
-            <img src="images/thumbs/ramo.jpeg" alt="Ramo Rosa Suave" />
-        </a>
-        <h2>Ramo Rosa Suave</h2>
-        <p>Detalle perfecto para regalo. <br><strong>Precio: 25€</strong></p>
-        <button class="add-to-cart-btn" onclick="addToCart('Ramo Rosa', 25)">Añadir al carrito</button>
-    </article>
+        .logo-area { display: flex; align-items: center; }
+        .logo-area img { 
+            height: 60px; /* Tamaño ideal para el dibujo */
+            width: auto;
+            margin-right: 10px;
+        }
+        .logo-area span { font-weight: bold; color: #008b8b; font-size: 1.2rem; }
+
+        nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { color: #555; text-decoration: none; font-weight: 500; font-size: 14px; text-transform: uppercase; }
+        nav ul li a:hover { color: #008b8b; }
+
+        /* HERO SECTION CON LOGO DE BIENVENIDA */
+        .inicio-hero {
+            height: 75vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            transition: background-image 1.5s ease-in-out;
+            z-index: -1;
+            filter: brightness(0.7);
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .hero-content img.logo-welcome {
+            width: 100px; /* Logo más grande en el centro de bienvenida */
+            margin-bottom: 15px;
+        }
+
+        /* RESTO DE LA TIENDA */
+        .section-title { text-align: center; color: #008b8b; margin: 60px 0 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .container { padding: 0 5% 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 260px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; }
+
+        .btn-buy {
+            background: #008b8b;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .asistencia-box {
+            background: #fff;
+            max-width: 600px;
+            margin: 40px auto 100px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 12px;
+            border: 2px dashed #008b8b;
+        }
+
+        /* MODAL CARRITO */
+        #cart-modal {
+            display: none;
+            position: fixed;
+            right: 20px;
+            top: 80px;
+            background: #fff;
+            border: 1px solid #008b8b;
+            width: 300px;
+            padding: 20px;
+            z-index: 3000;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-area">
+        <img src="images/logo-flores.png" alt="FloresdeHilos Logo"> 
+        <span>FloresdeHilos</span>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#flores">Flores</a></li>
+            <li><a href="#ramos">Ramos</a></li>
+            <li><a href="#capsulas">Cápsulas</a></li>
+            <li><a href="#asistencia">Asistencia</a></li>
+        </ul>
+    </nav>
+    <div class="header-actions" style="display: flex; align-items: center;">
+        <div class="cart-icon" onclick="toggleCart()" style="cursor:pointer; font-size: 20px; position: relative;">
+            🛒 <span id="cart-count" style="background: #008b8b; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 50%; position: absolute; top: -10px; right: -10px;">0</span>
+        </div>
+    </div>
+</header>
+
+<section class="inicio-hero" id="inicio">
+    <div id="hero-bg"></div>
+    <div class="hero-content">
+        <img src="images/logo-flores.png" alt="Bienvenido" class="logo-welcome">
+        <h1>Flores que nunca se marchitan</h1>
+        <p>Arte hecho a mano con hilo y dedicación. Regala algo eterno.</p>
+        <a href="#flores" class="btn-inicio" style="background: #008b8b; color: white; padding: 12px 25px; text-decoration: none; border-radius: 20px; display: inline-block; margin-top: 15px;">Ver Catálogo</a>
+    </div>
 </section>
 
-				<footer id="footer">
-						<ul class="copyright">
-							<li>&copy; FloresdeHilos.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a>.</li>
-						</ul>
-					</footer>
+<h2 class="section-title" id="flores">Flores Individuales</h2>
+<div class="container">
+    <div class="card">
+        <img id="img-flor" src="images/thumbs/01.jpg" alt="Flor">
+        <h3>Flor Artesanal</h3>
+        <p>Color del hilo:</p>
+        <select id="color-flor" style="width:100%; padding:10px; margin-bottom:15px;" onchange="cambiarFoto('img-flor', this.value)">
+            <option value="images/thumbs/01.jpg">Rojo Coral</option>
+            <option value="images/thumbs/02.jpg">Azul Turquesa</option>
+            <option value="images/thumbs/03.jpg">Rosa Crema</option>
+        </select>
+        <p><strong>12.00€</strong></p>
+        <button class="btn-buy" onclick="addToCartConColor('Flor Individual', 12, 'color-flor')">Añadir al Carrito</button>
+    </div>
+</div>
 
-			</div>
+<h2 class="section-title" id="ramos">Nuestros Ramos</h2>
+<div class="container">
+    <div class="card">
+        <img src="images/thumbs/Ramo de flores.jpeg" alt="Ramo">
+        <h3>Ramo de Primavera</h3>
+        <p>Un estallido de color eterno.</p>
+        <p><strong>25.00€</strong></p>
+        <button class="btn-buy" onclick="addToCart('Ramo de Primavera', 25)">Añadir al Carrito</button>
+    </div>
+</div>
 
-		<script>
-			let cart = [];
-			let total = 0;
-			const MI_TELEFONO = "34600000000"; // CAMBIA ESTO POR TU NÚMERO (con 34)
+<h2 class="section-title" id="capsulas">Cápsulas Especiales</h2>
+<div class="container">
+    <div class="card">
+        <img src="images/thumbs/ramo.jpeg" alt="Cápsula">
+        <h3>Cápsula de Rosa Eterna</h3>
+        <p>La belleza protegida bajo cristal.</p>
+        <p><strong>18.00€</strong></p>
+        <button class="btn-buy" onclick="addToCart('Cápsula de Rosa', 18)">Añadir al Carrito</button>
+    </div>
+</div>
 
-			function addToCart(name, price) {
-				cart.push({name, price});
-				total += price;
-				updateCart();
-				// Feedback visual rápido
-				const btn = event.target;
-				const originalText = btn.innerText;
-				btn.innerText = "¡Añadido! ✅";
-				setTimeout(() => btn.innerText = originalText, 1000);
-			}
+<h2 class="section-title" id="asistencia">Asistencia</h2>
+<div class="asistencia-box">
+    <p>¿Dudas o pedidos especiales?</p>
+    <a href="mailto:floresdehilos54@gmail.com" style="color: #008b8b; font-weight: bold; text-decoration: none;">📩 floresdehilos54@gmail.com</a>
+</div>
 
-			function updateCart() {
-				document.getElementById('cart-counter').innerText = cart.length;
-				const list = document.getElementById('cart-list');
-				list.innerHTML = "";
-				cart.forEach((item, index) => {
-					const li = document.createElement('li');
-					li.style.marginBottom = "5px";
-					li.innerHTML = `${item.name} - ${item.price}€ <button onclick="removeItem(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:0.8em;">[x]</button>`;
-					list.appendChild(li);
-				});
-				document.getElementById('cart-total').innerText = total;
-			}
+<div id="cart-modal">
+    <h3 style="color:#008b8b; margin-top:0;">Tu Carrito</h3>
+    <div id="cart-items" style="margin-bottom:15px; border-top: 1px solid #eee; padding-top: 10px;"></div>
+    <p>Total: <span id="total-price" style="font-weight:bold;">0</span>€</p>
+    <button class="btn-buy" onclick="checkoutBizum()">Pagar con Bizum</button>
+    <button style="background:none; border:none; color:#999; width:100%; cursor:pointer; margin-top:10px;" onclick="toggleCart()">Cerrar</button>
+</div>
 
-			function removeItem(index) {
-				total -= cart[index].price;
-				cart.splice(index, 1);
-				updateCart();
-			}
+<script>
+    // CARRUSEL
+    const imagenes = ['images/thumbs/01.jpg', 'images/thumbs/Ramo de flores.jpeg', 'images/thumbs/ramo.jpeg'];
+    let indice = 0;
+    const heroBg = document.getElementById('hero-bg');
+    function cambiarImagenCarrusel() {
+        heroBg.style.backgroundImage = `url('${imagenes[indice]}')`;
+        indice = (indice + 1) % imagenes.length;
+    }
+    cambiarImagenCarrusel();
+    setInterval(cambiarImagenCarrusel, 4000);
 
-			function toggleCart() {
-				const container = document.getElementById('cart-container');
-				container.style.display = container.style.display === 'block' ? 'none' : 'block';
-			}
+    // TIENDA
+    let cart = []; let total = 0;
+    function cambiarFoto(idImg, ruta) { document.getElementById(idImg).src = ruta; }
+    function addToCartConColor(nombre, precio, idSelector) {
+        const color = document.getElementById(idSelector).options[document.getElementById(idSelector).selectedIndex].text;
+        addToCart(`${nombre} (${color})`, precio);
+    }
+    function addToCart(nombre, precio) {
+        cart.push({nombre, precio}); total += precio; updateUI();
+    }
+    function updateUI() {
+        document.getElementById('cart-count').innerText = cart.length;
+        const list = document.getElementById('cart-items'); list.innerHTML = "";
+        cart.forEach(item => { list.innerHTML += `<div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:5px;"><span>${item.nombre}</span><span>${item.precio}€</span></div>`; });
+        document.getElementById('total-price').innerText = total;
+    }
+    function toggleCart() {
+        const modal = document.getElementById('cart-modal'); modal.style.display = (modal.style.display === 'block') ? 'none' : 'block';
+    }
+    function checkoutBizum() {
+        const phone = "34600000000"; // PON TU NÚMERO
+        let text = "¡Hola! Quiero confirmar mi pedido en FloresdeHilos:%0A";
+        cart.forEach(item => text += `- ${item.nombre}: ${item.precio}€%0A`);
+        text += `%0ATotal: ${total}€%0A¿Me confirmas tu Bizum?`;
+        window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    }
+</script>
 
-			function checkout() {
-				if (cart.length === 0) return alert("El carrito está vacío");
-				let message = "¡Hola FloresdeHilos! Quiero hacer este pedido:%0A%0A";
-				cart.forEach(item => { message += `• ${item.name} (${item.price}€)%0A`; });
-				message += `%0A*Total: ${total}€*%0A¿Me pasas los datos para el Bizum?`;
-				window.open(`https://wa.me/${MI_TELEFONO}?text=${message}`, '_blank');
-			}
-		</script>
-
-		<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/main.js"></script>
-	</body>
+</body>
 </html>
-
-
-
-
